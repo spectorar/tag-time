@@ -1,5 +1,42 @@
+<!DOCTYPE html>
 <html>
 <head>
+
+<!-- <script type="text/javascript" src="TagView.js"></script> -->
+
+<script type="text/javascript">
+
+var TagView = function(document) {
+	alert("here");
+	var tagElem = document.createElement("input");
+
+	tagElem.className = "tag-w";
+	tagElem.value = "A tag..";
+
+	var writeTagOnBlur = function(el) {
+	// alert("here1");
+
+		if (el.validTag()) {
+			var tag = document.createElement("span");
+			tag.className = el.className.substring(0, el.className.length-2) + "-r";
+			tag.innerHTML = el.value;
+			el.parentNode.replaceChild(tag, el);
+		} else {
+			el.parentNode.removeChild(el);
+		}
+	}
+	
+	tagElem.onblur = function() {
+		writeTagOnBlur(this);
+	}
+
+	tagElem.validTag = function() {
+		return this.value.indexOf("A tag..") === -1;
+
+	return tagElem;
+}
+
+</script>
 
 <script type="text/javascript">
 
@@ -7,125 +44,69 @@
 // 	alert(this.className);
 // }
 
+
+
 document.onclick = function(evt) {
 	var evt = window.event || evt;
 	if (!evt.target) {
 		evt.target = evt.srcElement;
 	}
 	var el = evt.target;
-	// alert(el.innerHTML);
+	// alert("here");
 	if (el.className === "dt-r" || el.className === "tag-r") {
 		var tagIn = document.createElement("input");
 		tagIn.setAttribute("class", el.className.substring(0, el.className.length-2) + "-w");
-		// tagIn.onblur = writeTagOnBlur(this);
+
 		tagIn.onblur = function() { 
 			writeTagOnBlur(this)
 		};
 
 		tagIn.validTag = function() {
-				// var r = /^[0-9]?[0-9]:[0-9][0-9]$/;
-				// return r.test(this.value);
-				alert(this.value.indexOf("A tag..") === -1);
 				return this.value.indexOf("A tag..") === -1;
 		}
-		// tagIn.onblur = (return writeTagOnBlur(this));
-		// alert(el.innerHTML);
-		// alert(tag.innerHTML);
 		tagIn.value = el.innerHTML;
 		// alert(tag.innerHTML);
 		el.parentNode.replaceChild(tagIn, el);
 		tagIn.focus();
 	} 
-	// else if (el.className === "dt-w" || el.className === "tag-w") {
-	// 	var tag = document.createElement("span");
-	// 	tag.setAttribute("class", el.className.substring(0, el.className.length-2) + "-r");
-	// 	// tag.setAttribute("onblur", writeTagOnBlur);
-	// 	// tag.onblur = writeTagOnBlur();
-	// 	// alert(tag.onblur);
-	// 	tag.innerHTML = el.value;
-	// 	// tag.setAttribute("innerHTML", el.value);
-	// 	// alert(tag.innerHTML)
-	// 	el.parentNode.replaceChild(tag, el);
-	// }
-	// alert(el.id.indexOf("_") === el.id.length - 1);
+	
 	if (el.className === "time") {
-		// alert(el.children.length);
+		// alert("here");
 		if (el.children.length === 0) {
-			el.innerHTML = "";
-			var tagIn = document.createElement("input");
-			tagIn.className = "dt-w";
-			tagIn.value = "How much time?";
+			// el.innerHTML = "";
+			// var tagIn = document.createElement("input");
+			// tagIn.className = "dt-w";
+			// tagIn.value = "How much time?";
 
-			tagIn.onblur = function() {
-				writeDtOnBlur(this);
-				// removeEventListener("blur");
-				// addEventListener("blur");
-			}
+			// tagIn.onblur = function() {
+			// 	writeDtOnBlur(this);
+			// }
 
-			// tagIn.addEventListener("blur", blurEvent);
-			// tagIn.onblur = return writeDtOnBlur(this);
+			// tagIn.validTime = function() {
+			// 	var r = /^[0-9]?[0-9]:[0-9][0-9]$/;
+			// 	return r.test(this.value);
+			// }
+			alert ("new time")
+			var tagIn = new TagView(document);
+			alert(tagIn);
 
-			tagIn.validTime = function() {
-				var r = /^[0-9]?[0-9]:[0-9][0-9]$/;
-				// alert(this.value);
-				// alert(r.test(this.value));
-				// alert(r.test(this.value));
-				return r.test(this.value);
-			}
-
-			// el.setAttribute("id", "tm3");
 			el.appendChild(tagIn);
 			tagIn.focus();
 		} else {
-			// alert('here');
 			var tagIn = document.createElement("input");
 			tagIn.className = "tag-w";
+			tagIn.value = "A tag..";
 
 			tagIn.onblur = function() {
 				writeTagOnBlur(this);
 			}
+			tagIn.validTag = function() {
+				return this.value.indexOf("A tag..") === -1;
 
-			tagIn.value = "A tag..";
-			// el.setAttribute("id", "tm3");
 			el.appendChild(tagIn);
 			tagIn.focus();
-
-			// tagIn.onblur = function() {
-			// 	if (isValid()) {
-			// 		this.className = "tag-r";
-			// 	} else {
-			// 		this.parentNode.removeChild(this);
-			// 	}
-			// }
-
-			// tagIn.isValid = function() {
-			// 	true;
-			// }
-
-			tagIn.validTag = function() {
-				// var r = /^[0-9]?[0-9]:[0-9][0-9]$/;				
-				// return r.test(this.value);
-				return this.value !== "A tag..";
 			}
 		}
-	
-		// var emptyTime = document.createElement("td");
-		// emptyTime.setAttribute("class", "time");
-		// emptyTime.setAttribute("id", "tm_"):
-		// var emptyRow = document.createElement("tr");
-		// emptyRow.appendChild(emptyTime);
-		// alert(el.parentNode.parentNode.);
-		// var emptyRow = el.parentNode.parentNode.insertRow(-1);
-		// // alert(emptyRow);
-		// var emptyTime = emptyRow.insertCell(-1);
-		// // alert(emptyTime);
-		// // emptyTime.setAttribute("class", "time");
-		// emptyTime.className = "time";
-		// emptyTime.id = "tm_";
-		
-		// emptyTime.setAttribute("id", "tm_"):
-		// alert(emptyTime.id);
-		// tagIn.focus();
 	}
 }
 
@@ -133,108 +114,51 @@ var editTagOnFocus = function() {
 	alert("here");
 }
 
-// var blurEvent = function(evt) {
-// 	var evt = window.event || evt;
-// 	if (!evt.target) {
-// 		evt.target = evt.srcElement;
+// var writeTagOnBlur = function(el) {
+// 	alert("here1");
+
+// 	if (el.validTag()) {
+// 		var tag = document.createElement("span");
+// 		tag.className = el.className.substring(0, el.className.length-2) + "-r";
+// 		tag.innerHTML = el.value;
+// 		el.parentNode.replaceChild(tag, el);
+// 	} else {
+// 		el.parentNode.removeChild(el);
 // 	}
-// 	var el = evt.target;
-// 	writeDtOnBlur(this);
-// 	// this.removeEventListener("blur", blurEvent);
-// 	// this.addEventListener("blur", blurEvent);
-// };
-
-var writeTagOnBlur = function(el) {
-	alert("here1");
-
-	// tag.setAttribute("onblur", writeTagOnBlur);
-	// if (el.className === "dt") {
-
-	// } else 
-	if (el.validTag()) {
-		alert('here2');
-		var tag = document.createElement("span");
-		tag.className = el.className.substring(0, el.className.length-2) + "-r";
-		tag.innerHTML = el.value;
-		el.parentNode.replaceChild(tag, el);
-	} else {
-		alert('here3');
-		el.parentNode.removeChild(el);
-	}
-	// tag.setAttribute("innerHTML", el.value);
-	// alert(tag.innerHTML)
-	// el.parentNode.replaceChild(tag, el);
-}
+// }
 
 var writeDtOnBlur = function(el) {
-	// alert(el.id);
 	if (el.validTime()) {
 		var timeTag = document.createElement("span");
 		timeTag.className = "dt-r";
 		timeTag.innerHTML = el.value;
-		// el.parentNode.replaceChild(timeTag, el);
 
 		var emptyRow = el.parentNode.parentNode.parentNode.insertRow(-1);
-		// alert(emptyRow);
 		var emptyTime = emptyRow.insertCell(-1);
-		// alert(emptyTime);
-		// emptyTime.setAttribute("class", "time");
 		emptyTime.className = "time";
 		emptyTime.id = "tm_";
-		// el.id = "tm_n";
 		emptyTime.innerHTML = "Click to tag new time ...";
-		// writeTagOnBlur(el);
 
 		el.parentNode.replaceChild(timeTag, el);
 
-		// tagIn.setAttribute("onblur", "writeTagOnBlur(this)");
 	} else if (el.value === "How much time?") {
 		if (el.className !== "removing") {
-				// alert(el.className);
 				el.className = "removing";
-				// alert(el.className);
-				// alert("Please enter time in the format hh:mm.")
 				var parent = el.parentNode;
-				// alert(parent);
-				// alert(parent + " : " + parent.id);
 				parent.removeChild(el);
-				// alert(el.parentNode + " : " + el.parentNode.id);
-				// alert(parent + " : " + parent.id)
-				// alert(parent);
 				parent.innerHTML = "Click to tag new time ...";
-				// el.parentNode.removeChild(el);
-
-				// delete el;
 
 			}
-		// }
 
 	} else {
-		// alert(el.id);
-		// alert(el.parentNode.innerHTML);
-		// if (el.parentNode.innerHTML !== "Click to tag new time ...") {
-			// alert("here");
-			// alert(this.target);
-			// alert(el.className);
-			if (el.className !== "removing") {
-				// alert(el.className);
-				el.className = "removing";
-				// alert(el.className);
-				alert("Please enter time in the format hh:mm.")
-				var parent = el.parentNode;
-				// alert(parent);
-				// alert(parent + " : " + parent.id);
-				parent.removeChild(el);
-				// alert(el.parentNode + " : " + el.parentNode.id);
-				// alert(parent + " : " + parent.id)
-				// alert(parent);
-				parent.innerHTML = "Click to tag new time ...";
-				// el.parentNode.removeChild(el);
+		if (el.className !== "removing") {
+			el.className = "removing";
+			alert("Please enter time in the format hh:mm.")
+			var parent = el.parentNode;
+			parent.removeChild(el);
+			parent.innerHTML = "Click to tag new time ...";
 
-				// delete el;
-
-			}
-		// }
+		}
 	}
 }
 
@@ -319,9 +243,9 @@ var writeDtOnBlur = function(el) {
 					<div class='tag'> Support </div>
 					<div class='tag'> Billable </div> -->
 					<span class='dt-r' value='2.35' onfocus='editTagOnFocus()'> 2hr 35min </span>
-					<span class='tag-r'> BNYM </span>
-					<span class='tag-r'> Support </span>
-					<span class='tag-r'> Non-Billable </span>
+					<span class='tag-r'>BNYM</span>
+					<span class='tag-r'>Support</span>
+					<span class='tag-r'>Non-Billable</span>
 					<!-- <input type='text' value='test'></input> -->
 			<!-- </div> -->
 			</td>
@@ -334,9 +258,9 @@ var writeDtOnBlur = function(el) {
 					<div class='tag'> Support </div>
 					<div class='tag'> Billable </div> -->
 					<span class='dt-r' value='4.00'> 4hr </span>
-					<span class='tag-r'> Barclays </span>
-					<span class='tag-r'> Analysis </span>
-					<span class='tag-r'> Billable </span>
+					<span class='tag-r'>Barclays</span>
+					<span class='tag-r'>Analysis</span>
+					<span class='tag-r'>Billable</span>
 			</td>
 			<!-- </div> -->
 		</tr>

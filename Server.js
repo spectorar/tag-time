@@ -2,6 +2,7 @@ var http = require('http');
 var fs = require("fs");
 // var DataManager = require('./DataManager.js');
 var home = fs.readFileSync("index.html");
+// var home = fs.readFileSync("index.html");
 
 http.createServer(function(req, res) {
 	mainHandle(req, res);
