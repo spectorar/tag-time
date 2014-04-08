@@ -58,7 +58,7 @@ var EmptyTimeView = function(document) {
 			emptyTime.id = "tm_";
 			emptyTime.innerHTML = "Click to tag new time ...";
 
-			el.parentNode.replaceChild(timeTag, el);å
+			el.parentNode.replaceChild(timeTag, el);
 		} else if (el.className !== "removing") {
 			el.className = "removing";
 			var parent = el.parentNode;
@@ -88,7 +88,7 @@ var EmptyTimeView = function(document) {
 
 
 document.onclick = function(evt) {
-	
+
 	// For IE
 	var evt = window.event || evt;
 	if (!evt.target) {
