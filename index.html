@@ -2,87 +2,9 @@
 <html>
 <head>
 
-<!-- <script type="text/javascript" src="TagView.js"></script> -->
+<script type="text/javascript" src="TagView.js"></script>
 
-<script type="text/javascript">
-
-var TagView = function() {
-	var tagElem = document.createElement("input");
-
-	tagElem.className = "tag-w";
-	tagElem.value = "A tag..";
-
-	var writeTagOnBlur = function(el) {
-		if (el.validTag()) {
-			var tag = document.createElement("span");
-			tag.className = el.className.substring(0, el.className.length-2) + "-r";
-			tag.innerHTML = el.value;
-			el.parentNode.replaceChild(tag, el);
-		} else if (el.className !== "removing") {
-				el.className = "removing";
-				var parent = el.parentNode;
-				parent.removeChild(el);
-		}
-	}
-	
-	tagElem.onblur = function() {
-		writeTagOnBlur(this);
-	}
-
-	tagElem.validTag = function() {
-		return this.value.indexOf("A tag..") === -1;
-	}
-
-	return tagElem;
-}
-
-</script>
-
-<script type="text/javascript">
-
-var EmptyTimeView = function(document) {
-
-	var tagIn = document.createElement("input");
-	tagIn.className = "dt-w";
-	tagIn.value = "How much time?";
-
-	var writeDtOnBlur = function(el) {
-		if (el.validTime()) {
-			var timeTag = document.createElement("span");
-			timeTag.className = "dt-r";
-			timeTag.innerHTML = el.value;
-
-			var emptyRow = el.parentNode.parentNode.parentNode.insertRow(-1);
-			var emptyTime = emptyRow.insertCell(-1);
-			emptyTime.className = "time";
-			emptyTime.id = "tm_";
-			emptyTime.innerHTML = "Click to tag new time ...";
-
-			el.parentNode.replaceChild(timeTag, el);
-		} else if (el.className !== "removing") {
-			el.className = "removing";
-			var parent = el.parentNode;
-			parent.removeChild(el);
-			parent.innerHTML = "Click to tag new time ...";
-		}
-
-	}
-
-
-	tagIn.onblur = function() {
-		writeDtOnBlur(this);
-	}
-
-	tagIn.validTime = function() {
-		var r = /^[0-9]?[0-9]:[0-9][0-9]$/;
-		return r.test(this.value);
-	}
-
-	return tagIn;
-
-}
-
-</script>
+<script type="text/javascript" src="TimeView.js"></script>
 
 <script type="text/javascript">
 
@@ -115,7 +37,7 @@ document.onclick = function(evt) {
 	if (el.className === "time") {
 		if (el.children.length === 0) {
 
-			var tagIn = new EmptyTimeView(document);
+			var tagIn = new TimeView(document);
 			el.innerHTML = null;
 			el.appendChild(tagIn);
 			tagIn.focus();
