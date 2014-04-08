@@ -6,23 +6,22 @@
 
 <script type="text/javascript">
 
-var TagView = function(document) {
-	alert("here");
+var TagView = function() {
 	var tagElem = document.createElement("input");
 
 	tagElem.className = "tag-w";
 	tagElem.value = "A tag..";
 
 	var writeTagOnBlur = function(el) {
-	// alert("here1");
-
 		if (el.validTag()) {
 			var tag = document.createElement("span");
 			tag.className = el.className.substring(0, el.className.length-2) + "-r";
 			tag.innerHTML = el.value;
 			el.parentNode.replaceChild(tag, el);
-		} else {
-			el.parentNode.removeChild(el);
+		} else if (el.className !== "removing") {
+				el.className = "removing";
+				var parent = el.parentNode;
+				parent.removeChild(el);
 		}
 	}
 	
@@ -32,6 +31,7 @@ var TagView = function(document) {
 
 	tagElem.validTag = function() {
 		return this.value.indexOf("A tag..") === -1;
+	}
 
 	return tagElem;
 }
@@ -40,19 +40,62 @@ var TagView = function(document) {
 
 <script type="text/javascript">
 
-// window.onblur = function() { 
-// 	alert(this.className);
-// }
+var EmptyTimeView = function(document) {
 
+	var tagIn = document.createElement("input");
+	tagIn.className = "dt-w";
+	tagIn.value = "How much time?";
+
+	var writeDtOnBlur = function(el) {
+		if (el.validTime()) {
+			var timeTag = document.createElement("span");
+			timeTag.className = "dt-r";
+			timeTag.innerHTML = el.value;
+
+			var emptyRow = el.parentNode.parentNode.parentNode.insertRow(-1);
+			var emptyTime = emptyRow.insertCell(-1);
+			emptyTime.className = "time";
+			emptyTime.id = "tm_";
+			emptyTime.innerHTML = "Click to tag new time ...";
+
+			el.parentNode.replaceChild(timeTag, el);å
+		} else if (el.className !== "removing") {
+			el.className = "removing";
+			var parent = el.parentNode;
+			parent.removeChild(el);
+			parent.innerHTML = "Click to tag new time ...";
+		}
+
+	}
+
+
+	tagIn.onblur = function() {
+		writeDtOnBlur(this);
+	}
+
+	tagIn.validTime = function() {
+		var r = /^[0-9]?[0-9]:[0-9][0-9]$/;
+		return r.test(this.value);
+	}
+
+	return tagIn;
+
+}
+
+</script>
+
+<script type="text/javascript">
 
 
 document.onclick = function(evt) {
+	
+	// For IE
 	var evt = window.event || evt;
 	if (!evt.target) {
 		evt.target = evt.srcElement;
 	}
+
 	var el = evt.target;
-	// alert("here");
 	if (el.className === "dt-r" || el.className === "tag-r") {
 		var tagIn = document.createElement("input");
 		tagIn.setAttribute("class", el.className.substring(0, el.className.length-2) + "-w");
@@ -65,102 +108,29 @@ document.onclick = function(evt) {
 				return this.value.indexOf("A tag..") === -1;
 		}
 		tagIn.value = el.innerHTML;
-		// alert(tag.innerHTML);
 		el.parentNode.replaceChild(tagIn, el);
 		tagIn.focus();
 	} 
 	
 	if (el.className === "time") {
-		// alert("here");
 		if (el.children.length === 0) {
-			// el.innerHTML = "";
-			// var tagIn = document.createElement("input");
-			// tagIn.className = "dt-w";
-			// tagIn.value = "How much time?";
 
-			// tagIn.onblur = function() {
-			// 	writeDtOnBlur(this);
-			// }
-
-			// tagIn.validTime = function() {
-			// 	var r = /^[0-9]?[0-9]:[0-9][0-9]$/;
-			// 	return r.test(this.value);
-			// }
-			alert ("new time")
-			var tagIn = new TagView(document);
-			alert(tagIn);
-
+			var tagIn = new EmptyTimeView(document);
+			el.innerHTML = null;
 			el.appendChild(tagIn);
 			tagIn.focus();
 		} else {
-			var tagIn = document.createElement("input");
-			tagIn.className = "tag-w";
-			tagIn.value = "A tag..";
-
-			tagIn.onblur = function() {
-				writeTagOnBlur(this);
-			}
-			tagIn.validTag = function() {
-				return this.value.indexOf("A tag..") === -1;
+			var tagIn = new TagView();
 
 			el.appendChild(tagIn);
 			tagIn.focus();
-			}
 		}
 	}
 }
 
-var editTagOnFocus = function() {
-	alert("here");
-}
-
-// var writeTagOnBlur = function(el) {
-// 	alert("here1");
-
-// 	if (el.validTag()) {
-// 		var tag = document.createElement("span");
-// 		tag.className = el.className.substring(0, el.className.length-2) + "-r";
-// 		tag.innerHTML = el.value;
-// 		el.parentNode.replaceChild(tag, el);
-// 	} else {
-// 		el.parentNode.removeChild(el);
-// 	}
+// var editTagOnFocus = function() {
+// 	alert("here");
 // }
-
-var writeDtOnBlur = function(el) {
-	if (el.validTime()) {
-		var timeTag = document.createElement("span");
-		timeTag.className = "dt-r";
-		timeTag.innerHTML = el.value;
-
-		var emptyRow = el.parentNode.parentNode.parentNode.insertRow(-1);
-		var emptyTime = emptyRow.insertCell(-1);
-		emptyTime.className = "time";
-		emptyTime.id = "tm_";
-		emptyTime.innerHTML = "Click to tag new time ...";
-
-		el.parentNode.replaceChild(timeTag, el);
-
-	} else if (el.value === "How much time?") {
-		if (el.className !== "removing") {
-				el.className = "removing";
-				var parent = el.parentNode;
-				parent.removeChild(el);
-				parent.innerHTML = "Click to tag new time ...";
-
-			}
-
-	} else {
-		if (el.className !== "removing") {
-			el.className = "removing";
-			alert("Please enter time in the format hh:mm.")
-			var parent = el.parentNode;
-			parent.removeChild(el);
-			parent.innerHTML = "Click to tag new time ...";
-
-		}
-	}
-}
 
 </script>
 
@@ -243,9 +213,9 @@ var writeDtOnBlur = function(el) {
 					<div class='tag'> Support </div>
 					<div class='tag'> Billable </div> -->
 					<span class='dt-r' value='2.35' onfocus='editTagOnFocus()'> 2hr 35min </span>
-					<span class='tag-r'>BNYM</span>
-					<span class='tag-r'>Support</span>
-					<span class='tag-r'>Non-Billable</span>
+					<span class='tag-r' onblur='writeTagOnBlur(this)'>BNYM</span>
+					<span class='tag-r' onblur='writeTagOnBlur(this)'>Support</span>
+					<span class='tag-r' onblur='writeTagOnBlur(this)'>Non-Billable</span>
 					<!-- <input type='text' value='test'></input> -->
 			<!-- </div> -->
 			</td>
@@ -258,9 +228,9 @@ var writeDtOnBlur = function(el) {
 					<div class='tag'> Support </div>
 					<div class='tag'> Billable </div> -->
 					<span class='dt-r' value='4.00'> 4hr </span>
-					<span class='tag-r'>Barclays</span>
-					<span class='tag-r'>Analysis</span>
-					<span class='tag-r'>Billable</span>
+					<span class='tag-r' onblur='writeTagOnBlur(this)'>Barclays</span>
+					<span class='tag-r' onblur='writeTagOnBlur(this)'>Analysis</span>
+					<span class='tag-r' onblur='writeTagOnBlur(this)'>Billable</span>
 			</td>
 			<!-- </div> -->
 		</tr>
