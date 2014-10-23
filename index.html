@@ -2,53 +2,50 @@
 <html>
 <head>
 
+<script type="text/javascript" src="TimeView.js"></script>
+
 <script type="text/javascript" src="TagView.js"></script>
 
-<script type="text/javascript" src="TimeView.js"></script>
+<script type="text/javascript" src="DtView.js"></script>
 
 <script type="text/javascript">
 
-
-document.onclick = function(evt) {
-
-	// For IE
-	var evt = window.event || evt;
-	if (!evt.target) {
-		evt.target = evt.srcElement;
-	}
-
-	var el = evt.target;
-	if (el.className === "dt-r" || el.className === "tag-r") {
-		var tagIn = document.createElement("input");
-		tagIn.setAttribute("class", el.className.substring(0, el.className.length-2) + "-w");
-
-		tagIn.onblur = function() { 
-			writeTagOnBlur(this)
-		};
-
-		tagIn.validTag = function() {
-				return this.value.indexOf("A tag..") === -1;
-		}
-		tagIn.value = el.innerHTML;
-		el.parentNode.replaceChild(tagIn, el);
-		tagIn.focus();
-	} 
-	
-	if (el.className === "time") {
-		if (el.children.length === 0) {
-
-			var tagIn = new TimeView(document);
-			el.innerHTML = null;
-			el.appendChild(tagIn);
-			tagIn.focus();
-		} else {
-			var tagIn = new TagView();
-
-			el.appendChild(tagIn);
-			tagIn.focus();
-		}
-	}
+window.onload = function() {
+	var timeList = document.getElementById("time-list");
+	timeList.appendChild(new TimeView(document));
 }
+
+
+// document.onclick = function(evt) {
+
+// 	// For IE
+// 	var evt = window.event || evt;
+// 	if (!evt.target) {
+// 		evt.target = evt.srcElement;
+// 	}
+
+// 	var el = evt.target;
+// 	if (el.className === "dt-r" || el.className === "tag-r") {
+// 		var tagIn = new TagView();
+// 		tagIn.value = el.innerHTML;
+// 		el.parentNode.replaceChild(tagIn, el);
+// 		tagIn.focus();
+// 	} 
+	
+// 	// if (el.className === "time") {
+// 	// 	if (el.children.length === 0) {
+
+// 	// 		var tagIn = new DtView(document);
+// 	// 		el.innerHTML = null;
+// 	// 		el.appendChild(tagIn);
+// 	// 		tagIn.focus();
+// 	// 	} else if (!el.isEdit) {
+// 	// 		var tagIn = new TagView();
+// 	// 		el.appendChild(tagIn);
+// 	// 		tagIn.focus();
+// 	// 	}
+// 	// }
+// }
 
 // var editTagOnFocus = function() {
 // 	alert("here");
@@ -126,37 +123,25 @@ document.onclick = function(evt) {
 		<input type="submit" value="TagTime!"> </input>
 	</form>
 -->
-	<table class='time-list'>
-		<tr>
+	<table class='time-list' id='time-list'>
+<!-- 		<tr>
 			<td class='time' id='tm1'>
-			<!-- <div class='time' id='tm1'> -->
-			<!--		<div class='dt' value='2.35'> 2hr 35min </div> 
-					<div class='tag'> BNYM </div>
-					<div class='tag'> Support </div>
-					<div class='tag'> Billable </div> -->
 					<span class='dt-r' value='2.35' onfocus='editTagOnFocus()'> 2hr 35min </span>
 					<span class='tag-r' onblur='writeTagOnBlur(this)'>BNYM</span>
 					<span class='tag-r' onblur='writeTagOnBlur(this)'>Support</span>
 					<span class='tag-r' onblur='writeTagOnBlur(this)'>Non-Billable</span>
-					<!-- <input type='text' value='test'></input> -->
-			<!-- </div> -->
 			</td>
 		</tr>
 		<tr>
 			<td class='time' id='tm1'>
-			<!-- <div class='time' id='tm2'>  -->
-			<!--		<div class='dt' value='2.35'> 2hr 35min </div> 
-					<div class='tag'> BNYM </div>
-					<div class='tag'> Support </div>
-					<div class='tag'> Billable </div> -->
 					<span class='dt-r' value='4.00'> 4hr </span>
 					<span class='tag-r' onblur='writeTagOnBlur(this)'>Barclays</span>
 					<span class='tag-r' onblur='writeTagOnBlur(this)'>Analysis</span>
 					<span class='tag-r' onblur='writeTagOnBlur(this)'>Billable</span>
 			</td>
-			<!-- </div> -->
-		</tr>
-		<tr><td class='time' id='tm_'>Click to tag new time ...</td></tr>
+		</tr> -->
+		<!-- <tr><td class='time' id='tm_'>Click to tag new time ...</td></tr> -->
+		<!-- <tr class='time' id='tm_'>Click to tag new time...</tr> -->
 	</table>
 
 

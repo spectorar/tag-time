@@ -1,43 +1,78 @@
 var TimeView = function(document) {
 
-	var tagIn = document.createElement("input");
-	tagIn.className = "dt-w";
-	tagIn.value = "How much time?";
+	var newTimeListRow = document.createElement("tr")
+	var newTime = document.createElement("td");
+	newTime.className = "time";
+	newTime.id = "tm_";
+	newTime.innerHTML = "Click to tag new time ...";
+	newTime.isEdit = false;
+	newTime.childBlur = false;
 
-	var writeDtOnBlur = function(el) {
-		if (el.validTime()) {
-			var timeTag = document.createElement("span");
-			timeTag.className = "dt-r";
-			timeTag.innerHTML = el.value;
-
-			var emptyRow = el.parentNode.parentNode.parentNode.insertRow(-1);
-			var emptyTime = emptyRow.insertCell(-1);
-			emptyTime.className = "time";
-			emptyTime.id = "tm_";
-			emptyTime.innerHTML = "Click to tag new time ...";
-
-			el.parentNode.replaceChild(timeTag, el);
-		} else if (el.className !== "removing") {
-			if (el.value !== "How much time?") {
-				alert("Please enter time in the format hh:mm.")
+	newTime.onclick = function() {
+		console.log("clicked");
+		console.log(this.childBlur);
+		if (!this.childBlur) {
+			console.log(this.isEmpty());
+			if (this.isEmpty()) {
+				emptyTimeClicked(this);
+			} else if (!this.isEdit) {
+				var tagIn = new TagView(true, null);
+				this.appendChild(tagIn);
+				tagIn.focus();
 			}
-			el.className = "removing";
-			var parent = el.parentNode;
-			parent.removeChild(el);
-			parent.innerHTML = "Click to tag new time ...";
+		} else {
+			this.childBlur = false;
 		}
+		// if (this.isEmpty() && !this.childRemoved) {
+		// 	// alert("empty");
+		// 	emptyTimeClicked(this);
+		// } else if (!this.childRemoved && !this.isEdit) {
+		// 	alert("tunneled");
+		// 	var tagIn = new TagView(true, null);
+		// 	this.appendChild(tagIn);
+		// 	tagIn.focus();
+		// } else if (this.childRemoved) {
+		// 	this.childRemoved = false;
+		// }
+	};
+
+	newTime.isEmpty = function() {
+		// alert(this.children.length);
+		return this.children.length === 0;
+	};
+
+	var emptyTimeClicked = function(el) {
+		var dtIn = new DtView(document, true, null);
+		el.innerHTML = null;
+		el.isEdit = true;
+		el.appendChild(dtIn);
+		dtIn.focus();
+	};
+
+	newTime.removeDt = function(dt) {
+		this.removeChild(dt);
+		// if (this.children.length == 0) {
+			this.innerHTML = "Click to tag new time ...";
+		// }	
+		this.childBlur = true;
+		this.isEdit = false;
 	}
 
+	newTime.commitDt = function(dt) {
+		// create a read Dt
+		var readDt = new DtView(document, false, dt.value);
 
-	tagIn.onblur = function() {
-		writeDtOnBlur(this);
+		// if this Dt is the only child, append a new Time to the list
+		if (this.children.length === 1) {
+			var timeList = document.getElementById("time-list");
+			timeList.appendChild(new TimeView(document));
+		}
+		// replace the current write Dt with the new read Dr
+		this.replaceChild(readDt, dt);
+		this.isEdit = false;
 	}
 
-	tagIn.validTime = function() {
-		var r = /^[0-9]?[0-9]:[0-9][0-9]$/;
-		return r.test(this.value);
-	}
-
-	return tagIn;
-
+	newTimeListRow.appendChild(newTime);
+	
+	return newTimeListRow;
 }

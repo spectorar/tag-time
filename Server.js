@@ -17,15 +17,24 @@ console.log('Server running at localhost:2121');
 
 function mainHandle(req, res) {
 	var fileName;
+	var file;
+
 	if (req.url === "/") {
 		fileName = "index.html";
 	} else {
 		fileName = req.url.substring(1, req.url.length);
 	}
+	console.log(fileName);
 
-	var file = fs.readFileSync(fileName);
-	var ext = path.extname(req.url) || ".html";
-	var contentType = dictTypes[ext] || 'text/html';
-	res.writeHead(200, {'Content-Type' : contentType});
-	res.end(file);
+	try {
+		file = fs.readFileSync(fileName);
+	} catch (e) {
+		console.log(e);
+		file = null;
+
+	}
+		var ext = path.extname(req.url) || ".html";
+		var contentType = dictTypes[ext] || 'text/html';
+		res.writeHead(200, {'Content-Type' : contentType});
+		res.end(file);
 }
