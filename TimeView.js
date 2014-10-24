@@ -7,12 +7,11 @@ var TimeView = function(document) {
 	newTime.innerHTML = "Click to tag new time ...";
 	newTime.isEdit = false;
 	newTime.childBlur = false;
+	newTime.isTemp = true;
+
 
 	newTime.onclick = function() {
-		console.log("clicked");
-		console.log(this.childBlur);
 		if (!this.childBlur) {
-			console.log(this.isEmpty());
 			if (this.isEmpty()) {
 				emptyTimeClicked(this);
 			} else if (!this.isEdit) {
@@ -47,14 +46,27 @@ var TimeView = function(document) {
 	newTime.commitDt = function(dt) {
 		// create a read Dt
 		var readDt = new DtView(document, false, dt.value);
-		// if this Dt is the only child, append a new Time to the list
-		if (this.children.length === 1) {
-			var timeList = document.getElementById("time-list");
-			timeList.appendChild(new TimeView(document));
-		}
-		// replace the current write Dt with the new read Dr
+		// replace the current write Dt with the new read Dt
 		this.replaceChild(readDt, dt);
 		this.isEdit = false;
+		this.isTemp = false;
+
+		var timeListHasTemp = false;
+		var timeList = document.getElementById("time-list");
+		// Check all the Dt in the time list to see if any is a temp Dt
+		// TODO get rid of all these children references. Maybe time-list should be aware if it contains a temp Dt
+		for (var i=0; i<timeList.children.length; i++) {
+			if (timeList.children[i].children[0].isTemp) {
+				timeListHasTemp	= true;
+				break;
+			}
+		}
+
+		// if the time list doesn't have a temp Dt, add one
+		if (!timeListHasTemp) {
+			// var timeList = document.getElementById("time-list");
+			timeList.appendChild(new TimeView(document));
+		}
 	}
 
 	newTimeListRow.appendChild(newTime);

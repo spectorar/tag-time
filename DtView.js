@@ -21,20 +21,8 @@ var DtView = function(document, write, value) {
 	tagIn.write = write;
 
 	var writeDtOnBlur = function(el) {
-		console.log("writeDtOnBlur");
 		if (el.validTime()) {
 			el.parentNode.commitDt(el);
-
-			// create a read Dt
-			var timeTag = new DtView(document, false, el.value);
-
-			// if this Dt is the only child, append a new Time to the list
-			if (el.parentNode.children.length === 1) {
-				var timeList = document.getElementById("time-list");
-				timeList.appendChild(new TimeView(document));
-			}
-			// replace the current write Dt with the new read Dr
-			el.parentNode.replaceChild(timeTag, el);
 		} else {
 			if (el.value !== "How much time?") {
 				alert("Please enter time in the format hh:mm.");
