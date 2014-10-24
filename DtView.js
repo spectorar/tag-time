@@ -16,7 +16,6 @@ var DtView = function(document, write, value) {
 		tagIn = document.createElement("span");
 		tagIn.className = "dt-r";
 		tagIn.innerHTML = value;
-		tagIn.removing = false;
 	}
 
 	tagIn.write = write;
@@ -36,13 +35,6 @@ var DtView = function(document, write, value) {
 			}
 			// replace the current write Dt with the new read Dr
 			el.parentNode.replaceChild(timeTag, el);
-		// } else if (!el.removing) {
-		// 	if (el.value !== "How much time?") {
-		// 		alert("Please enter time in the format hh:mm.");
-		// 	}
-		// 	el.removing = true;
-		// 	el.parentNode.removeDt(el);
-		// }
 		} else {
 			if (el.value !== "How much time?") {
 				alert("Please enter time in the format hh:mm.");
@@ -68,8 +60,9 @@ var DtView = function(document, write, value) {
 	};
 
 	tagIn.onclick = function() {
-		if (!this.write)
+		if (!this.write) {
 			startEditOnClick(this);
+		}
 		window.event.stopPropagation();
 	};
 

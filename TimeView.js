@@ -23,21 +23,9 @@ var TimeView = function(document) {
 		} else {
 			this.childBlur = false;
 		}
-		// if (this.isEmpty() && !this.childRemoved) {
-		// 	// alert("empty");
-		// 	emptyTimeClicked(this);
-		// } else if (!this.childRemoved && !this.isEdit) {
-		// 	alert("tunneled");
-		// 	var tagIn = new TagView(true, null);
-		// 	this.appendChild(tagIn);
-		// 	tagIn.focus();
-		// } else if (this.childRemoved) {
-		// 	this.childRemoved = false;
-		// }
 	};
 
 	newTime.isEmpty = function() {
-		// alert(this.children.length);
 		return this.children.length === 0;
 	};
 
@@ -51,9 +39,7 @@ var TimeView = function(document) {
 
 	newTime.removeDt = function(dt) {
 		this.removeChild(dt);
-		// if (this.children.length == 0) {
-			this.innerHTML = "Click to tag new time ...";
-		// }	
+		this.innerHTML = "Click to tag new time ...";
 		this.childBlur = true;
 		this.isEdit = false;
 	}
@@ -61,7 +47,6 @@ var TimeView = function(document) {
 	newTime.commitDt = function(dt) {
 		// create a read Dt
 		var readDt = new DtView(document, false, dt.value);
-
 		// if this Dt is the only child, append a new Time to the list
 		if (this.children.length === 1) {
 			var timeList = document.getElementById("time-list");

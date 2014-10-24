@@ -1,13 +1,5 @@
 var TagView = function(write, value) {
-
-// Need to figure out how to create both read and write versions of this programmatically
-
-
-	// var tagElem = document.createElement("input");
-
-	// tagElem.className = "tag-w";
-	// tagElem.value = "A tag..";
-
+	
 	var tagElem;
 
 	if (write) {
@@ -26,11 +18,7 @@ var TagView = function(write, value) {
 
 	var writeTagOnBlur = function(el) {
 		if (el.validTag()) {
-			// var tag = document.createElement("span");
-			// tag.className = el.className.substring(0, el.className.length-2) + "-r";
-			// tag.innerHTML = el.value;
 			var tag = new TagView(false, el.value);
-
 			el.getTime().replaceChild(tag, el);
 		} else if (el.className !== "removing") {
 			el.className = "removing";

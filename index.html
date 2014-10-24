@@ -15,42 +15,6 @@ window.onload = function() {
 	timeList.appendChild(new TimeView(document));
 }
 
-
-// document.onclick = function(evt) {
-
-// 	// For IE
-// 	var evt = window.event || evt;
-// 	if (!evt.target) {
-// 		evt.target = evt.srcElement;
-// 	}
-
-// 	var el = evt.target;
-// 	if (el.className === "dt-r" || el.className === "tag-r") {
-// 		var tagIn = new TagView();
-// 		tagIn.value = el.innerHTML;
-// 		el.parentNode.replaceChild(tagIn, el);
-// 		tagIn.focus();
-// 	} 
-	
-// 	// if (el.className === "time") {
-// 	// 	if (el.children.length === 0) {
-
-// 	// 		var tagIn = new DtView(document);
-// 	// 		el.innerHTML = null;
-// 	// 		el.appendChild(tagIn);
-// 	// 		tagIn.focus();
-// 	// 	} else if (!el.isEdit) {
-// 	// 		var tagIn = new TagView();
-// 	// 		el.appendChild(tagIn);
-// 	// 		tagIn.focus();
-// 	// 	}
-// 	// }
-// }
-
-// var editTagOnFocus = function() {
-// 	alert("here");
-// }
-
 </script>
 
 <style type="text/css">
@@ -62,7 +26,6 @@ window.onload = function() {
 
 .time {
 	height: 50px;
-	/*border-top: 2px solid;*/
 	border-bottom: 2px solid;
 	vertical-align: middle;
 	margin: 0px 0px 0px 0px;
@@ -71,7 +34,6 @@ window.onload = function() {
 .dt-r,
 .tag-r {
 	padding: 5px;
-	/*width: 20px;*/
 	border-width: 2px;
 	border-style: solid;
 	border-collapse: collapse;
@@ -88,7 +50,6 @@ window.onload = function() {
 .dt-w,
 .tag-w {
 	padding: 5px;
-	/*width: 20px;*/
 	border-width: 2px;
 	border-style: solid;
 	border-collapse: collapse;
@@ -113,39 +74,7 @@ window.onload = function() {
 
 	<P> Pick the date and then add time with tags. </p>
 
-<!--	<form>
-		Date: <input type="date"> </input>
-		<br/>
-		Time: <input type="number"> </input>
-		<br/>
-		Tags: <textarea></textarea>
-		<br/>
-		<input type="submit" value="TagTime!"> </input>
-	</form>
--->
-	<table class='time-list' id='time-list'>
-<!-- 		<tr>
-			<td class='time' id='tm1'>
-					<span class='dt-r' value='2.35' onfocus='editTagOnFocus()'> 2hr 35min </span>
-					<span class='tag-r' onblur='writeTagOnBlur(this)'>BNYM</span>
-					<span class='tag-r' onblur='writeTagOnBlur(this)'>Support</span>
-					<span class='tag-r' onblur='writeTagOnBlur(this)'>Non-Billable</span>
-			</td>
-		</tr>
-		<tr>
-			<td class='time' id='tm1'>
-					<span class='dt-r' value='4.00'> 4hr </span>
-					<span class='tag-r' onblur='writeTagOnBlur(this)'>Barclays</span>
-					<span class='tag-r' onblur='writeTagOnBlur(this)'>Analysis</span>
-					<span class='tag-r' onblur='writeTagOnBlur(this)'>Billable</span>
-			</td>
-		</tr> -->
-		<!-- <tr><td class='time' id='tm_'>Click to tag new time ...</td></tr> -->
-		<!-- <tr class='time' id='tm_'>Click to tag new time...</tr> -->
-	</table>
-
-
-	<div> </div>
+	<table class='time-list' id='time-list'> </table>
 
 
 </body>
