@@ -5,9 +5,8 @@ var TagView = function(write, value) {
 	if (write) {
 		tagElem = document.createElement("input");
 		tagElem.className = "tag-w"
-		if (!value) {
-			tagElem.value = "A tag..";
-		} else {
+		tagElem.placeholder = "A tag...";
+		if (value) {
 			tagElem.value = value;
 		}
 	} else {
@@ -44,7 +43,7 @@ var TagView = function(write, value) {
 	}
 
 	tagElem.validTag = function() {
-		return this.value.indexOf("A tag..") === -1;
+		return this.value != "";
 	}
 
 	tagElem.getTime = function() {

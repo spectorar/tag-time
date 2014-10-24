@@ -7,9 +7,8 @@ var DtView = function(document, write, value) {
 	if (write) {
 		tagIn = document.createElement("input");
 		tagIn.className = "dt-w";
-		if (!value) {
-			tagIn.value = "How much time?";
-		} else {
+		tagIn.placeholder = "How much time?";
+		if (value) {
 			tagIn.value = value;
 		}
 	} else {
@@ -24,9 +23,7 @@ var DtView = function(document, write, value) {
 		if (el.validTime()) {
 			el.parentNode.commitDt(el);
 		} else {
-			if (el.value !== "How much time?") {
-				alert("Please enter time in the format hh:mm.");
-			}
+			alert("Please enter time in the format hh:mm.");
 			if (el.parentNode.children.length === 1) {
 				el.parentNode.removeDt(el);
 			}
