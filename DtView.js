@@ -23,11 +23,12 @@ var DtView = function(document, write, value) {
 		if (el.validTime()) {
 			el.parentNode.commitDt(el);
 		} else {
-			alert("Please enter time in the format hh:mm.");
+			if (el.value !== "") {
+				alert("Please enter time in the format hh:mm.");
+			}
 			if (el.parentNode.children.length === 1) {
 				el.parentNode.removeDt(el);
 			}
-
 		}
 	};
 
@@ -50,6 +51,16 @@ var DtView = function(document, write, value) {
 		}
 		window.event.stopPropagation();
 	};
+
+	tagIn.onkeydown = function(e) {
+		// var KEY_TAB = 9;
+		var KEY_ENTER = 13;
+		if (e.keyCode === KEY_ENTER) {
+			var cell = this.parentNode;
+			if (cell.lastChild === this)
+				cell.createNewTag();
+		}
+	}
 
 	tagIn.validTime = function() {
 		var r = /^[0-9]?[0-9]:[0-9][0-9]$/;

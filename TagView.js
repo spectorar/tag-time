@@ -16,12 +16,13 @@ var TagView = function(write, value) {
 	}
 
 	var writeTagOnBlur = function(el) {
+		var time = el.getTime();
 		if (el.validTag()) {
 			var tag = new TagView(false, el.value);
-			el.getTime().replaceChild(tag, el);
+			time.replaceChild(tag, el);
 		} else if (el.className !== "removing") {
 			el.className = "removing";
-			el.getTime().removeChild(el);
+			time.removeChild(el);
 		}
 
 	}
@@ -40,6 +41,19 @@ var TagView = function(write, value) {
 	
 	tagElem.onblur = function() {
 		writeTagOnBlur(this);
+	}
+
+	tagElem.onkeydown = function(e) {
+		// var KEY_TAB = 9;
+		var KEY_ENTER = 13;
+		var KEY_ESC = 27;
+		if (e.keyCode === KEY_ENTER) {
+			if (this.validTag() && this.getTime().lastChild === this) {
+				this.getTime().createNewTag();
+			} else {
+				this.blur();
+			}
+		}
 	}
 
 	tagElem.validTag = function() {

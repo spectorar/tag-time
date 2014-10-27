@@ -9,15 +9,20 @@ var TimeView = function(document) {
 	newTime.childBlur = false;
 	newTime.isTemp = true;
 
+	newTime.createNewTag = function() {
+		var tagIn = new TagView(true, null);
+		this.appendChild(tagIn);
+		tagIn.focus();
+		return tagIn;
+	}
+
 
 	newTime.onclick = function() {
 		if (!this.childBlur) {
 			if (this.isEmpty()) {
 				emptyTimeClicked(this);
 			} else if (!this.isEdit) {
-				var tagIn = new TagView(true, null);
-				this.appendChild(tagIn);
-				tagIn.focus();
+				this.createNewTag();
 			}
 		} else {
 			this.childBlur = false;
