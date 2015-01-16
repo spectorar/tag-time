@@ -1,26 +1,15 @@
-<html>
-<head>
-	<link rel="stylesheet" type="text/css" href="tag-time.css">
-	<script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
-	<script type="text/javascript" src="js/TimeView.js"></script>
-	<script type="text/javascript" src="js/TagView.js"></script>
-	<script type="text/javascript" src="js/DtView.js"></script>
-	<script type="text/javascript">
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" type="text/css" href="tag-time.css">
+        
+    </head>
 
-	window.onload = function() {
-        	var timeList = document.getElementById("time-list");
-        	timeList.appendChild(new TimeView(document));
-	}
+    <body>
 
-	</script>
-</head>
+        <h1> Welcome to TagTime! </h1>
 
-<body>
-Hello World
-
-	<h1> Welcome to TagTime! </h1>
-
-        <P> Pick the date and then add time with tags. </p>
+        <p> Pick the date and then add time with tags. </p>
 
         <input type="date" id="date" name="date">
 
@@ -28,7 +17,18 @@ Hello World
 
         <button>Save</button>
 
+        <!-- Begin Scripts -->
+        <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+        <script type="text/javascript" src="js/TimeView.js"></script>
+        <script type="text/javascript" src="js/TagView.js"></script>
+        <script type="text/javascript" src="js/DtView.js"></script>
+        <script type="text/javascript">
 
+            window.onload = function() {
+                var timeList = document.getElementById("time-list");
+                timeList.appendChild(new TimeView(document));
+            }
 
-</body>
+        </script>
+    </body>
 </html>
