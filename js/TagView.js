@@ -19,7 +19,7 @@ var TagView = function(write, value) {
 
 	var writeTagOnBlur = function(el) {
 		var time = el.getTime();
-		if (el.nodeName === "input" && el.validTag()) {
+		if ((el.nodeName === "input" || el.nodeName === "INPUT") && el.validTag()) {
 			var tag = new TagView(false, el.value);
 			time.replaceChild(tag, el);
 		} else if (el.className !== "removing") {
