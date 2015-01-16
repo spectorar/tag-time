@@ -15,9 +15,11 @@ var TagView = function(write, value) {
 		tagElem.innerHTML = value;
 	}
 
+	tagElem.tabIndex = 0;
+
 	var writeTagOnBlur = function(el) {
 		var time = el.getTime();
-		if (el.validTag()) {
+		if (el.nodeName === "input" && el.validTag()) {
 			var tag = new TagView(false, el.value);
 			time.replaceChild(tag, el);
 		} else if (el.className !== "removing") {
@@ -45,19 +47,29 @@ var TagView = function(write, value) {
 
 	tagElem.onkeydown = function(e) {
 		// var KEY_TAB = 9;
+		var KEY_BACKSPACE = 8;
 		var KEY_ENTER = 13;
 		var KEY_ESC = 27;
 		if (e.keyCode === KEY_ENTER) {
 			if (this.validTag() && this.getTime().lastChild === this) {
 				this.getTime().createNewTag();
 			} else {
-				this.blur();
+				if (document.activeElement === this) {
+					this.blur();
+				}
 			}
 		}
+		// if (e.keyCode === KEY_BACKSPACE) {
+		// 	if (this.value === "") {
+		// 		console.log("Removing on backspace");
+		// 		this.getTime().removeChild(this);
+		// 		e.preventDefault();
+		// 	}
+		// }
 	}
 
 	tagElem.validTag = function() {
-		return this.value != "";
+		return this.value !== "";
 	}
 
 	tagElem.getTime = function() {

@@ -18,6 +18,7 @@ var DtView = function(document, write, value) {
 	}
 
 	tagIn.write = write;
+	tagIn.tabIndex = 0;
 
 	var writeDtOnBlur = function(el) {
 		if (el.validTime()) {
@@ -56,9 +57,12 @@ var DtView = function(document, write, value) {
 		// var KEY_TAB = 9;
 		var KEY_ENTER = 13;
 		if (e.keyCode === KEY_ENTER) {
-			var cell = this.parentNode;
-			if (cell.lastChild === this)
+			cell = this.parentNode;
+			if (this.validTime() && cell.lastChild === this) {
 				cell.createNewTag();
+			} else {
+				this.blur();
+			}
 		}
 	}
 

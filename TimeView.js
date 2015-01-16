@@ -9,13 +9,7 @@ var TimeView = function(document) {
 	newTime.childBlur = false;
 	newTime.isTemp = true;
 
-	newTime.createNewTag = function() {
-		var tagIn = new TagView(true, null);
-		this.appendChild(tagIn);
-		tagIn.focus();
-		return tagIn;
-	}
-
+	newTime.tabIndex = 0;
 
 	newTime.onclick = function() {
 		if (!this.childBlur) {
@@ -28,6 +22,13 @@ var TimeView = function(document) {
 			this.childBlur = false;
 		}
 	};
+
+	newTime.createNewTag = function() {
+		var tagIn = new TagView(true, null);
+		this.appendChild(tagIn);
+		tagIn.focus();
+		return tagIn;
+	}
 
 	newTime.isEmpty = function() {
 		return this.children.length === 0;
