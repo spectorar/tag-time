@@ -1,87 +1,34 @@
-<!DOCTYPE html>
 <html>
 <head>
+	<link rel="stylesheet" type="text/css" href="tag-time.css">
+	<script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+	<script src="TimeView.js"></script>
+	<script type="text/javascript" src="TagView.js"></script>
+	<script type="text/javascript" src="DtView.js"></script>
+	<script type="text/javascript">
 
-<script type="text/javascript" src="TimeView.js"></script>
+	window.onload = function() {
+        	var timeList = document.getElementById("time-list");
+        	timeList.appendChild(new TimeView(document));
+	}
 
-<script type="text/javascript" src="TagView.js"></script>
-
-<script type="text/javascript" src="DtView.js"></script>
-
-<script type="text/javascript">
-
-window.onload = function() {
-	var timeList = document.getElementById("time-list");
-	timeList.appendChild(new TimeView(document));
-}
-
-</script>
-
-<style type="text/css">
-
-.time-list {
-	width: 750px;
-	border-top: 2px solid;
-}
-
-.time {
-	height: 50px;
-	border-bottom: 2px solid;
-	vertical-align: middle;
-	margin: 0px 0px 0px 0px;
-}
-
-.dt-r,
-.tag-r {
-	padding: 5px;
-	border-width: 2px;
-	border-style: solid;
-	border-collapse: collapse;
-}
-
-.dt-r {
-	margin-right: 15px;
-}
-
-.tag-r {
-	margin: 5px;
-}
-
-.dt-w,
-.tag-w {
-	padding: 5px;
-	border-width: 2px;
-	border-style: solid;
-	border-collapse: collapse;
-}
-
-.dt-w {
-	margin-right: 15px;
-}
-
-.tag-w {
-	margin: 5px;
-}
-
-
-</style>
-
-
+	</script>
 </head>
 
 <body>
+Hello World
+
 	<h1> Welcome to TagTime! </h1>
 
-	<P> Pick the date and then add time with tags. </p>
+        <P> Pick the date and then add time with tags. </p>
 
-	<input type="date" id="date" name="date">
+        <input type="date" id="date" name="date">
 
-	<table class="time-list" id="time-list"> </table>
+        <table class="time-list" id="time-list"> </table>
 
-	<button>Save</button>
+        <button>Save</button>
+
 
 
 </body>
-
-
 </html>
