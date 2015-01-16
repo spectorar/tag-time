@@ -1,0 +1,22 @@
+{
+  "name": "tag-time",
+  "version": "0.0.0",
+  "description": "A super simple and flexible time tracking app",
+  "main": "Server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/spectorar/tag-time.git"
+  },
+  "keywords": [
+    "tag",
+    "time"
+  ],
+  "author": "Arthur and the Illuminati",
+  "license": "NO IDEA",
+  "bugs": {
+    "url": "https://github.com/spectorar/tag-time/issues"
+  }
+}
