@@ -1,7 +1,8 @@
 var TimeView = function(document) {
 
-	var newTimeListRow = document.createElement("tr")
-	var newTime = document.createElement("td");
+	var newTimeListRow = document.createElement("tr"),
+	    newTime = document.createElement("td");
+
 	newTime.className = "time";
 	newTime.id = "tm_";
 	newTime.innerHTML = "Click to tag new time ...";
@@ -51,17 +52,19 @@ var TimeView = function(document) {
 
 	newTime.commitDt = function(dt) {
 		// create a read Dt
-		var readDt = new DtView(document, false, dt.value);
+		var readDt = new DtView(document, false, dt.value),
+		    timeListHasTemp = false,
+		    timeList = document.getElementById("time-list").
+            i;
+
 		// replace the current write Dt with the new read Dt
 		this.replaceChild(readDt, dt);
 		this.isEdit = false;
 		this.isTemp = false;
 
-		var timeListHasTemp = false;
-		var timeList = document.getElementById("time-list");
 		// Check all the Dt in the time list to see if any is a temp Dt
 		// TODO get rid of all these children references. Maybe time-list should be aware if it contains a temp Dt
-		for (var i=0; i<timeList.children.length; i++) {
+		for (i=0; i<timeList.children.length; i++) {
 			if (timeList.children[i].children[0].isTemp) {
 				timeListHasTemp	= true;
 				break;
