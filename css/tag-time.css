@@ -1,0 +1,44 @@
+.time-list {
+        width: 750px;
+        border-top: 2px solid;
+}
+
+.time {
+        height: 50px;
+        border-bottom: 2px solid;
+        vertical-align: middle;
+        margin: 0px 0px 0px 0px;
+}
+
+.dt-r,
+.tag-r {
+        padding: 5px;
+        border-width: 2px;
+        border-style: solid;
+        border-collapse: collapse;
+}
+
+.dt-r {
+        margin-right: 15px;
+}
+
+.tag-r {
+        margin: 5px;
+}
+
+.dt-w,
+.tag-w {
+        padding: 5px;
+        border-width: 2px;
+        border-style: solid;
+        border-collapse: collapse;
+}
+
+.dt-w {
+        margin-right: 15px;
+}
+
+.tag-w {
+        margin: 5px;
+}
+
