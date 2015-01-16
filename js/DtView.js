@@ -62,6 +62,7 @@ var DtView = function(document, write, value) {
 				cell.createNewTag();
 			} else {
 				this.blur();
+				document.getElementById("save").focus();
 			}
 		}
 	}

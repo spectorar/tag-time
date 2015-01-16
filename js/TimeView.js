@@ -12,6 +12,10 @@ var TimeView = function(document) {
 
 	newTime.tabIndex = 0;
 
+	newTimeListRow.getDt = function() {
+		return newTime;
+	}
+
 	newTime.onclick = function() {
 		if (!this.childBlur) {
 			if (this.isEmpty()) {

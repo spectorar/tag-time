@@ -51,15 +51,38 @@ var TagView = function(write, value) {
 		var KEY_BACKSPACE = 8;
 		var KEY_ENTER = 13;
 		var KEY_ESC = 27;
+
+		var newTime;
+		// if (e.keyCode === KEY_ENTER) {
+		// 	if (this.validTag() && this.getTime().lastChild === this) {
+		// 		this.getTime().createNewTag();
+		// 	} else {
+		// 		if (document.activeElement === this) {
+		// 			this.blur();
+		// 		}
+		// 	}
+		// }
+
 		if (e.keyCode === KEY_ENTER) {
-			if (this.validTag() && this.getTime().lastChild === this) {
-				this.getTime().createNewTag();
+			if (this.getTime().lastChild === this && this.getTime().children.length > 1) {
+				if (this.validTag()) {
+					this.getTime().createNewTag();
+				} else {
+					this.blur();
+					newTime = new TimeView(document);
+					document.getElementById("time-list").appendChild(newTime);
+					newTime.getDt().onclick();
+				}
 			} else {
 				if (document.activeElement === this) {
 					this.blur();
 				}
 			}
 		}
+
+
+
+
 		// if (e.keyCode === KEY_BACKSPACE) {
 		// 	if (this.value === "") {
 		// 		console.log("Removing on backspace");
