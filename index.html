@@ -11,20 +11,23 @@
 
         <p> Pick the date and then add time with tags. </p>
 
-        <input type="date" id="date" name="date">
+    <!--    <input type="date" id="date" name="date">
 
         <table class="time-list" id="time-list"> </table>
 
         <button id="save">Save</button>
-
+    -->
+    
         <!-- Begin Scripts -->
         <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+        <script type="text/javascript" src="js/DayView.js"></script>
         <script type="text/javascript" src="js/TimeView.js"></script>
         <script type="text/javascript" src="js/TagView.js"></script>
         <script type="text/javascript" src="js/DtView.js"></script>
         <script type="text/javascript">
 
             window.onload = function() {
+                document.body.appendChild(new DayView());
                 var timeList = document.getElementById("time-list");
                 timeList.appendChild(new TimeView(document));
             }

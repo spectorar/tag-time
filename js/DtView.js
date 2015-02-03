@@ -40,17 +40,18 @@ var DtView = function(document, write, value) {
 	};
 
 
-	tagIn.onblur = function() {
+	tagIn.onblur = function(e) {
 		if (this.write) {
 			writeDtOnBlur(this);
 		}
+		e.stopPropagation();
 	};
 
-	tagIn.onclick = function() {
+	tagIn.onclick = function(e) {
 		if (!this.write) {
 			startEditOnClick(this);
 		}
-		window.event.stopPropagation();
+		e.stopPropagation();
 	};
 
 	tagIn.onkeydown = function(e) {
@@ -59,7 +60,7 @@ var DtView = function(document, write, value) {
 		if (e.keyCode === KEY_ENTER) {
 			cell = this.parentNode;
 			if (this.validTime() && cell.lastChild === this) {
-				cell.createNewTag();
+				cell.createNewWriteTag();
 			} else {
 				this.blur();
 				document.getElementById("save").focus();
