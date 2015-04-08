@@ -1,8 +1,7 @@
 var TimeView = function(document) {
 
 	var newTimeListRow = document.createElement("tr"),
-	    newTime = document.createElement("td"),
-	    currWriteTag;
+	    newTime = document.createElement("td");
 
 	newTime.className = "time";
 	newTime.id = "tm_";
@@ -10,23 +9,45 @@ var TimeView = function(document) {
 	newTime.isEdit = false;
 	newTime.isTemp = true;
 
+	newTime.tabIndex = 0;
+
 	newTimeListRow.getDt = function() {
 		return newTime;
 	};
 
 	newTime.onclick = function(e) {
+		console.log("time click");
+		if (this.isEmpty()) {
+			createDt(this);
+		} else {
+			this.createNewWriteTag();
+		}
+	}
+
+	newTime.onkeydown = function(e) {
+		// var KEY_TAB = 9;
+		// var KEY_BACKSPACE = 8;
+		var KEY_ENTER = 13;
+		// var KEY_ESC = 27;
+
+
+		console.log("keydown: " + this.innerHTML);
+
+		if (e.keyCode === KEY_ENTER) {
+			console.log("detected Enter");
 			if (this.isEmpty()) {
-				emptyTimeClicked(this);
-			} else {
-				this.createNewWriteTag();
+				createDt(this);
 			}
+			// return false to prevent default ENTER behavior
+			return false;
+		}
 	};
 
 	newTime.createNewWriteTag = function() {
 		var tagIn = new TagView(true, null);
 		this.appendChild(tagIn);
-		currWriteTag = tagIn;
 		tagIn.focus();
+		console.log(tagIn.innerHTML);
 		return tagIn;
 	}
 
@@ -34,7 +55,7 @@ var TimeView = function(document) {
 		return this.children.length === 0;
 	};
 
-	var emptyTimeClicked = function(el) {
+	var createDt = function(el) {
 		var dtIn = new DtView(document, true, null);
 		el.innerHTML = null;
 		el.isEdit = true;
@@ -55,17 +76,10 @@ var TimeView = function(document) {
 
 	newTime.addTempRowMaybe = function() {
 		var timeList = document.getElementById("time-list"),
-			timeListHasTemp = false;
-
-		for (i=0; i<timeList.children.length; i++) {
-			if (timeList.children[i].children[0].isTemp) {
-				timeListHasTemp	= true;
-				break;
-			}
-		}
+			tempTime = document.getElementById("day").getTempTime();
 
 		// if the time list doesn't have a temp Dt, add one
-		if (!timeListHasTemp) {
+		if (!tempTime) {
 			timeList.appendChild(new TimeView(document));
 		}
 	}

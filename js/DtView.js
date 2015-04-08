@@ -47,6 +47,54 @@ var DtView = function(document, write, value) {
 		e.stopPropagation();
 	}
 
+
+	tagIn.onkeydown = function(e) {
+		// var KEY_TAB = 9;
+		var KEY_BACKSPACE = 8;
+		var KEY_ENTER = 13;
+		var KEY_ESC = 27;
+
+		var newTime,
+			tempTime;
+
+		console.log("keydown: " + this.innerHTML);
+
+		if (e.keyCode === KEY_ENTER) {
+			console.log("detected Enter");
+			// if (this.getTime().lastChild === this && this.getTime().children.length > 1) {
+			// 	if (this.isValidTag()) {
+			// 		this.getTime().createNewWriteTag();
+			// 	} else {
+			// 		this.blur();
+			// 		tempTime = document.getElementById("day").getTempTime();
+			// 		//before this, check if there is a temp time. if there is, add the a dt and focus it.
+			// 		if (tempTime) {
+			// 			tempTime.focus();
+			// 		} else {
+			// 			newTime = new TimeView(document);
+			// 			document.getElementById("time-list").appendChild(newTime);
+			// 		}
+			// 	}
+			// } else {
+			// 	if (document.activeElement === this) {
+			// 		this.blur();
+			// 	}
+			// }
+			writeDt(this);
+			this.parentNode.createNewWriteTag();
+			// return false to prevent default ENTER behavior (adding 2 br)
+			return false;
+		}
+
+		// if (e.keyCode === KEY_BACKSPACE) {
+		// 	if (this.value === "") {
+		// 		console.log("Removing on backspace");
+		// 		this.getTime().removeChild(this);
+		// 		e.preventDefault();
+		// 	}
+		// }
+	}
+
 	tagIn.validTime = function() {
 		var r = /^[0-9]?[0-9]:[0-9][0-9]$/;
 		return r.test(this.innerHTML);
