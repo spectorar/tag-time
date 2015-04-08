@@ -5,26 +5,29 @@ var DtView = function(document, write, value) {
 
 	// create a "write" vs a "read" dt based on flag in constructor
 	if (write) {
-		tagIn = document.createElement("input");
-		tagIn.className = "dt-w";
-		tagIn.placeholder = "How much time?";
+		tagIn = document.createElement("span");
+		// tagIn.className = "dt-w";
+		// tagIn.placeholder = "How much time?";
+		tagIn.contentEditable = true;
 		if (value) {
-			tagIn.value = value;
+			tagIn.innerHTML = value;
 		}
 	} else {
 		tagIn = document.createElement("span");
-		tagIn.className = "dt-r";
 		tagIn.innerHTML = value;
 	}
+	tagIn.className = "dt-r";
 
 	tagIn.write = write;
 	tagIn.tabIndex = 0;
 
-	var writeDtOnBlur = function(el) {
+	var writeDt = function(el) {
 		if (el.validTime()) {
-			el.parentNode.commitDt(el);
+			el.contentEditable = false;
+			el.parentNode.setTemp(false);
+			el.parentNode.addTempRowMaybe();
 		} else {
-			if (el.value !== "") {
+			if (el.innerHTML !== "") {
 				alert("Please enter time in the format hh:mm.");
 			}
 			if (el.parentNode.children.length === 1) {
@@ -33,44 +36,20 @@ var DtView = function(document, write, value) {
 		}
 	};
 
-	var startEditOnClick = function(el) {
-		var tagIn = new DtView(document, true, el.innerHTML);
-		el.parentNode.replaceChild(tagIn, el);
-		tagIn.focus();
-	};
-
 
 	tagIn.onblur = function(e) {
-		if (this.write) {
-			writeDtOnBlur(this);
-		}
+			writeDt(this);
 		e.stopPropagation();
 	};
 
 	tagIn.onclick = function(e) {
-		if (!this.write) {
-			startEditOnClick(this);
-		}
+		this.contentEditable = true;
 		e.stopPropagation();
-	};
-
-	tagIn.onkeydown = function(e) {
-		// var KEY_TAB = 9;
-		var KEY_ENTER = 13;
-		if (e.keyCode === KEY_ENTER) {
-			cell = this.parentNode;
-			if (this.validTime() && cell.lastChild === this) {
-				cell.createNewWriteTag();
-			} else {
-				this.blur();
-				document.getElementById("save").focus();
-			}
-		}
 	}
 
 	tagIn.validTime = function() {
 		var r = /^[0-9]?[0-9]:[0-9][0-9]$/;
-		return r.test(this.value);
+		return r.test(this.innerHTML);
 	};
 
 	return tagIn;
