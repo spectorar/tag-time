@@ -82,6 +82,7 @@ var DtView = function(document, write, value) {
 			// }
 			writeDt(this);
 			this.parentNode.createNewWriteTag();
+			this.parentNode.setTabable(false);
 			// return false to prevent default ENTER behavior (adding 2 br)
 			return false;
 		}
