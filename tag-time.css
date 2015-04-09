@@ -32,13 +32,13 @@
     display:none;
 }
 
-.dt-w,
+/*.dt-w,
 .tag-w {
     padding: 5px;
     border-width: 2px;
     border-style: solid;
     border-collapse: collapse;
-}
+}*/
 
 .dt-w {
     margin-right: 15px;

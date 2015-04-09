@@ -6,12 +6,10 @@ var TimeView = function(document) {
 	newTime.className = "time";
 	newTime.id = "tm_";
 	newTime.innerHTML = "Click to tag new time ...";
-	newTime.isEdit = false;
 	newTime.isTemp = true;
 
 	// make tabable on empty times so that onfocus we can add a dt
 	// when the a dt is commited we will remove this tabIndex
-	// newTime.setTabable(true);
 	newTime.tabIndex = 0;
 
 	newTimeListRow.getDt = function() {
@@ -21,7 +19,7 @@ var TimeView = function(document) {
 	newTime.onfocus = function(e) {
 		console.log("time click");
 		if (this.isEmpty()) {
-			createDt(this);
+			this.createDt(this);
 		} else {
 			this.createNewWriteTag();
 		}
@@ -39,7 +37,7 @@ var TimeView = function(document) {
 		if (e.keyCode === KEY_ENTER) {
 			console.log("detected Enter");
 			if (this.isEmpty()) {
-				createDt(this);
+				this.createDt(this);
 			}
 			// return false to prevent default ENTER behavior
 			return false;
@@ -58,19 +56,18 @@ var TimeView = function(document) {
 		return this.children.length === 0;
 	};
 
-	var createDt = function(el) {
+	newTime.createDt = function(el) {
 		var dtIn = new DtView(document, true, null);
 		el.innerHTML = null;
-		el.isEdit = true;
 		el.appendChild(dtIn);
 		dtIn.focus();
+		this.setTabable(false);
 	};
 
 	newTime.removeDt = function(dt) {
 		this.removeChild(dt);
 		this.innerHTML = "Click to tag new time ...";
-		// this.childBlur = true;
-		this.isEdit = false;
+		this.setTabable(true);
 	}
 
 	newTime.setTemp = function(temp) {

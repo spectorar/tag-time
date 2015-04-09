@@ -28,7 +28,7 @@ var TagView = function(write, value) {
 		console.log("blur: " + this.innerHTML);
 		this.contentEditable = false;
 		if (!this.isValidTag()) {
-			this.parentNode.removeChild(this);
+			this.getTime().removeChild(this);
 		}
 		e.stopPropagation();
 	}
