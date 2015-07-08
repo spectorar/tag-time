@@ -57,10 +57,10 @@ var DtView = function(document, write, value) {
 		var newTime,
 			tempTime;
 
-		console.log("keydown: " + this.innerHTML);
-
+		// console.log("keydown: " + this.innerHTML);
+		console.log("keydown on dt");
 		if (e.keyCode === KEY_ENTER) {
-			console.log("detected Enter");
+			// console.log("detected Enter");
 			// if (this.getTime().lastChild === this && this.getTime().children.length > 1) {
 			// 	if (this.isValidTag()) {
 			// 		this.getTime().createNewWriteTag();
@@ -82,7 +82,7 @@ var DtView = function(document, write, value) {
 			// }
 			writeDt(this);
 			this.parentNode.createNewWriteTag();
-			this.parentNode.setTabable(false);
+			// this.parentNode.setTabable(false);
 			// return false to prevent default ENTER behavior (adding 2 br)
 			return false;
 		}

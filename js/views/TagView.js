@@ -42,10 +42,8 @@ var TagView = function(write, value) {
 		var newTime,
 			tempTime;
 
-		console.log("keydown: " + this.innerHTML);
-
+		console.log("keydown on tag");
 		if (e.keyCode === KEY_ENTER) {
-			console.log("detected Enter");
 			if (this.getTime().lastChild === this && this.getTime().children.length > 1) {
 				if (this.isValidTag()) {
 					this.getTime().createNewWriteTag();

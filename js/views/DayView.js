@@ -15,6 +15,9 @@ var DayView = function() {
 
 	saveButton.id = "save";
 	saveButton.innerHTML = "Save";
+	saveButton.onfocus = function() {
+		console.log("button focused");
+	}
 
 	wrap.appendChild(dateField);
 	wrap.appendChild(timeList);
